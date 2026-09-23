@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>Library</OutputType>
+		<TargetFramework>net472</TargetFramework>
+		<PlatformTarget>x64</PlatformTarget>
+
+		<!-- Modify RootNamespace, AssemblyName, OutputPath, VersionPrefix -->
+		<RootNamespace>EyesOnTheBackstop</RootNamespace>
+		<AssemblyName>EyesOnTheBackstop</AssemblyName>
+		<OutputPath>../1.6/Assemblies</OutputPath>
+		<VersionPrefix>0.1.0.0</VersionPrefix>
+
+		<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+		<Optimize>true</Optimize>
+		<DebugSymbols>true</DebugSymbols>
+		<DebugType>portable</DebugType>
+	</PropertyGroup>
+
+ 	<ItemGroup>
+		<Compile Include="../Source/1.6/**/*.cs" />
+		<PackageReference Include="Krafs.Rimworld.Ref" Version="1.6.4871" />
+		<PackageReference Include="Lib.Harmony" Version="2.4.2" />
+	</ItemGroup>
+</Project>

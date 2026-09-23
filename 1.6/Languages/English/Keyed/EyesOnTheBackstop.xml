@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+	<EyesOnTheBackstop_SettingsCategory>Eyes On The Backstop</EyesOnTheBackstop_SettingsCategory>
+	<EyesOnTheBackstop_RestoreDefaults>Restore defaults</EyesOnTheBackstop_RestoreDefaults>
+	<EyesOnTheBackstop_EnableBlindFire>Enable blind fire</EyesOnTheBackstop_EnableBlindFire>
+	<EyesOnTheBackstop_EnableBlindFireDesc>Show the blind fire aka "shoot in that general direction" command for supported ranged weapons.</EyesOnTheBackstop_EnableBlindFireDesc>
+	<EyesOnTheBackstop_EnableExtendedBulletTrajectories>Extend bullet trajectories</EyesOnTheBackstop_EnableExtendedBulletTrajectories>
+	<EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>Extend supported bullet trajectories beyond their normal weapon range when firing at terrain or in a general direction.</EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>
+	<EyesOnTheBackstop_EnableIndirectFireRaidReaction>Enable indirect-fire raid reactions</EyesOnTheBackstop_EnableIndirectFireRaidReaction>
+	<EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>Make sure staging raids won't completely ignore being hit repeatedly by stray bullets. They might not react immediately but they will soon begin their attack if you continue spraying them indirect fire.</EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>
+	<EyesOnTheBackstop_EnableObstaclePenetration>Enable obstacle penetration</EyesOnTheBackstop_EnableObstaclePenetration>
+	<EyesOnTheBackstop_EnableObstaclePenetrationDesc>Allow supported bullets to continue through sufficiently weak Things after damaging them.</EyesOnTheBackstop_EnableObstaclePenetrationDesc>
+	<EyesOnTheBackstop_PenetrableHitPointsThresholdLabel>Penetrable hit points threshold: {0}</EyesOnTheBackstop_PenetrableHitPointsThresholdLabel>
+	<EyesOnTheBackstop_PenetrationChanceLabel>Penetration chance: {0}%</EyesOnTheBackstop_PenetrationChanceLabel>
+	<EyesOnTheBackstop_PenetrationChanceDesc>Chance that a bullet hitting a penetrable Thing continues beyond it.</EyesOnTheBackstop_PenetrationChanceDesc>
+	<EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierLabel>Adjacent obstacle penetration chance multiplier: {0}%</EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierLabel>
+	<EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>Multiplier applied to penetration chance when another solid obstacle is immediately behind the penetrated obstacle.</EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>
+	<EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierLabel>Penetration continuation distance multiplier: {0}%</EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierLabel>
+	<EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>Multiplier applied to the configured indirect-fire range when a projectile continues after penetration.</EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>
+	<EyesOnTheBackstop_MinRangeMultiplierLabel>Minimum indirect fire range multiplier: {0}x</EyesOnTheBackstop_MinRangeMultiplierLabel>
+	<EyesOnTheBackstop_MaxRangeMultiplierLabel>Maximum indirect fire range multiplier: {0}x</EyesOnTheBackstop_MaxRangeMultiplierLabel>
+	<EyesOnTheBackstop_EnableRicochets>Enable ricochets</EyesOnTheBackstop_EnableRicochets>
+	<EyesOnTheBackstop_EnableRicochetsDesc>Allow supported bullets to redirect when they strike an obstacle at a shallow angle.</EyesOnTheBackstop_EnableRicochetsDesc>
+	<EyesOnTheBackstop_MaxRicochetAngleLabel>Maximum ricochet angle: {0}°</EyesOnTheBackstop_MaxRicochetAngleLabel>
+</LanguageData>
