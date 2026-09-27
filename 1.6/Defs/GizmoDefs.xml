@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <Defs>
-	<EyesOnTheBackstop.BlindFireGizmoDef>
-		<defName>EyesOnTheBackstop_BlindFire</defName>
-		<label>Blind fire</label>
+	<EyesOnTheBackstop.SuppressionFireGizmoDef>
+		<defName>EyesOnTheBackstop_SuppressionFire</defName>
+		<label>Suppress</label>
 		<description>Order this colonist to fire in the specified direction with their equipped ranged weapon.</description>
 		<iconPath>UI/Commands/Attack</iconPath>
-	</EyesOnTheBackstop.BlindFireGizmoDef>
+	</EyesOnTheBackstop.SuppressionFireGizmoDef>
 </Defs>

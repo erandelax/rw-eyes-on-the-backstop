@@ -10,6 +10,9 @@ namespace EyesOnTheBackstop
         public const float RangeMultiplierSliderMax = 5f;
         public const float DefaultMinRangeMultiplier = 0.75f;
         public const float DefaultMaxRangeMultiplier = 1.75f;
+        public const float SuppressionRadiusSliderMin = 3f;
+        public const float SuppressionRadiusSliderMax = 10f;
+        public const float DefaultSuppressionRadius = 3f;
         public const float PenetrationMultiplierSliderMin = 0.01f;
         public const float PenetrationMultiplierSliderMax = 1f;
         public const float DefaultAdjacentObstaclePenetrationChanceMultiplier = 0.2f;
@@ -20,11 +23,14 @@ namespace EyesOnTheBackstop
         public const int RicochetAngleSliderMax = 90;
         public const int DefaultMaxRicochetAngle = 30;
 
-        public bool enableBlindFire = false;
+        public bool enableSuppressionFire = true;
         public bool enableExtendedBulletTrajectories = true;
         public bool enableIndirectFireRaidReaction = true;
-        public bool enableObstaclePenetration = false;
-        public bool enableRicochets = false;
+        public bool enableSuppressionCompatibility = true;
+        public bool enableSameFactionSuppression = true;
+        public float suppressionRadius = DefaultSuppressionRadius;
+        public bool enableObstaclePenetration = true;
+        public bool enableRicochets = true;
         public int penetrableEffectiveHitPoints = DefaultPenetrableEffectiveHitPoints;
         public float penetrationChance = DefaultPenetrationChance;
         public float minRangeMultiplier = DefaultMinRangeMultiplier;
@@ -53,13 +59,18 @@ namespace EyesOnTheBackstop
 
         public int MaxRicochetAngle => Mathf.Clamp(maxRicochetAngle, RicochetAngleSliderMin, RicochetAngleSliderMax);
 
+        public float SuppressionRadius => Mathf.Clamp(
+            Mathf.Round(suppressionRadius),
+            SuppressionRadiusSliderMin,
+            SuppressionRadiusSliderMax);
+
         public void RestoreDefaults()
         {
-            enableBlindFire = false;
+            enableSuppressionFire = true;
             enableExtendedBulletTrajectories = true;
             enableIndirectFireRaidReaction = true;
-            enableObstaclePenetration = false;
-            enableRicochets = false;
+            enableObstaclePenetration = true;
+            enableRicochets = true;
             penetrableEffectiveHitPoints = DefaultPenetrableEffectiveHitPoints;
             penetrationChance = DefaultPenetrationChance;
             minRangeMultiplier = DefaultMinRangeMultiplier;
@@ -67,6 +78,13 @@ namespace EyesOnTheBackstop
             adjacentObstaclePenetrationChanceMultiplier = DefaultAdjacentObstaclePenetrationChanceMultiplier;
             penetrationContinuationDistanceMultiplier = DefaultPenetrationContinuationDistanceMultiplier;
             maxRicochetAngle = DefaultMaxRicochetAngle;
+        }
+
+        public void RestoreSuppressionCompatibilityDefaults()
+        {
+            enableSuppressionCompatibility = true;
+            enableSameFactionSuppression = true;
+            suppressionRadius = DefaultSuppressionRadius;
         }
 
         public void NormalizeSettings()
@@ -83,6 +101,7 @@ namespace EyesOnTheBackstop
                 PenetrationMultiplierSliderMax);
             penetrableEffectiveHitPoints = Math.Max(0, penetrableEffectiveHitPoints);
             maxRicochetAngle = Mathf.Clamp(maxRicochetAngle, RicochetAngleSliderMin, RicochetAngleSliderMax);
+            suppressionRadius = SuppressionRadius;
             if (minRangeMultiplier > maxRangeMultiplier)
             {
                 float temp = minRangeMultiplier;
@@ -93,11 +112,14 @@ namespace EyesOnTheBackstop
 
         public override void ExposeData()
         {
-            Scribe_Values.Look(ref enableBlindFire, "enableBlindFire", defaultValue: false);
+            Scribe_Values.Look(ref enableSuppressionFire, "enableSuppressionFire", defaultValue: true);
             Scribe_Values.Look(ref enableExtendedBulletTrajectories, "enableExtendedBulletTrajectories", defaultValue: true);
             Scribe_Values.Look(ref enableIndirectFireRaidReaction, "enableIndirectFireRaidReaction", defaultValue: true);
-            Scribe_Values.Look(ref enableObstaclePenetration, "enableObstaclePenetration", defaultValue: false);
-            Scribe_Values.Look(ref enableRicochets, "enableRicochets", defaultValue: false);
+            Scribe_Values.Look(ref enableSuppressionCompatibility, "enableSuppressionCompatibility", defaultValue: true);
+            Scribe_Values.Look(ref enableSameFactionSuppression, "enableSameFactionSuppression", defaultValue: true);
+            Scribe_Values.Look(ref suppressionRadius, "suppressionRadius", DefaultSuppressionRadius);
+            Scribe_Values.Look(ref enableObstaclePenetration, "enableObstaclePenetration", defaultValue: true);
+            Scribe_Values.Look(ref enableRicochets, "enableRicochets", defaultValue: true);
             Scribe_Values.Look(ref penetrableEffectiveHitPoints, "penetrableEffectiveHitPoints", DefaultPenetrableEffectiveHitPoints);
             Scribe_Values.Look(ref penetrationChance, "penetrationChance", DefaultPenetrationChance);
             Scribe_Values.Look(ref minRangeMultiplier, "minRangeMultiplier", DefaultMinRangeMultiplier);

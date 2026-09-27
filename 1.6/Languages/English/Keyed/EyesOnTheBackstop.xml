@@ -2,24 +2,35 @@
 <LanguageData>
 	<EyesOnTheBackstop_SettingsCategory>Eyes On The Backstop</EyesOnTheBackstop_SettingsCategory>
 	<EyesOnTheBackstop_RestoreDefaults>Restore defaults</EyesOnTheBackstop_RestoreDefaults>
-	<EyesOnTheBackstop_EnableBlindFire>Enable blind fire</EyesOnTheBackstop_EnableBlindFire>
-	<EyesOnTheBackstop_EnableBlindFireDesc>Show the blind fire aka "shoot in that general direction" command for supported ranged weapons.</EyesOnTheBackstop_EnableBlindFireDesc>
+	<EyesOnTheBackstop_OvershootingSection>Overshooting</EyesOnTheBackstop_OvershootingSection>
+	<EyesOnTheBackstop_PenetrationSection>Penetration</EyesOnTheBackstop_PenetrationSection>
+	<EyesOnTheBackstop_RicochetSection>Ricochet</EyesOnTheBackstop_RicochetSection>
+	<EyesOnTheBackstop_SuppressionSection>Suppression</EyesOnTheBackstop_SuppressionSection>
+	<EyesOnTheBackstop_SuppressionModNotInstalled>Open Suppression (Continued) mod page in browser. Use it to enable actual pawn suppression effects.</EyesOnTheBackstop_SuppressionModNotInstalled>
+	<EyesOnTheBackstop_EnableSuppressionFire>Enable suppression attack gizmo</EyesOnTheBackstop_EnableSuppressionFire>
+	<EyesOnTheBackstop_EnableSuppressionFireDesc>Show the suppression fire command for supported ranged weapons.</EyesOnTheBackstop_EnableSuppressionFireDesc>
 	<EyesOnTheBackstop_EnableExtendedBulletTrajectories>Extend bullet trajectories</EyesOnTheBackstop_EnableExtendedBulletTrajectories>
-	<EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>Extend supported bullet trajectories beyond their normal weapon range when firing at terrain or in a general direction.</EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>
-	<EyesOnTheBackstop_EnableIndirectFireRaidReaction>Enable indirect-fire raid reactions</EyesOnTheBackstop_EnableIndirectFireRaidReaction>
-	<EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>Make sure staging raids won't completely ignore being hit repeatedly by stray bullets. They might not react immediately but they will soon begin their attack if you continue spraying them indirect fire.</EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>
+	<EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>Extend missed bullet trajectories beyond their normal weapon range.</EyesOnTheBackstop_EnableExtendedBulletTrajectoriesDesc>
+	<EyesOnTheBackstop_EnableIndirectFireRaidReaction>Enable indirect-fire raid reaction</EyesOnTheBackstop_EnableIndirectFireRaidReaction>
+	<EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>Make sure staging raids won't completely ignore being hit repeatedly by stray bullets. They might not react immediately but they will soon begin their attack if you continue hitting them with out-of-range indirect fire.</EyesOnTheBackstop_EnableIndirectFireRaidReactionDesc>
+	<EyesOnTheBackstop_EnableSuppressionCompatibility>Enable Suppression mod compatibility patches</EyesOnTheBackstop_EnableSuppressionCompatibility>
+	<EyesOnTheBackstop_EnableSuppressionCompatibilityDesc>By default Suppression mod applies suppression effects around the bullet impact point. Since this mod shifts all missed bullet impacts far behind the target this option allows you to enable additional suppression of all targets along the bullet trajectory.</EyesOnTheBackstop_EnableSuppressionCompatibilityDesc>
+	<EyesOnTheBackstop_EnableSameFactionSuppression>Allow same-faction suppression</EyesOnTheBackstop_EnableSameFactionSuppression>
+	<EyesOnTheBackstop_EnableSameFactionSuppressionDesc>Extended suppression effects added by this mod will affect not only hostile but also own faction of the shooter.</EyesOnTheBackstop_EnableSameFactionSuppressionDesc>
+	<EyesOnTheBackstop_SuppressionRadiusLabel>Suppression radius: {0} cells</EyesOnTheBackstop_SuppressionRadiusLabel>
+	<EyesOnTheBackstop_SuppressionRadiusDesc>Maximum distance from a supported bullet trajectory at which suppression can be applied. Severity falls to zero at this distance.</EyesOnTheBackstop_SuppressionRadiusDesc>
 	<EyesOnTheBackstop_EnableObstaclePenetration>Enable obstacle penetration</EyesOnTheBackstop_EnableObstaclePenetration>
-	<EyesOnTheBackstop_EnableObstaclePenetrationDesc>Allow supported bullets to continue through sufficiently weak Things after damaging them.</EyesOnTheBackstop_EnableObstaclePenetrationDesc>
+	<EyesOnTheBackstop_EnableObstaclePenetrationDesc>Allow bullets to continue through sufficiently weak Things after damaging them.</EyesOnTheBackstop_EnableObstaclePenetrationDesc>
 	<EyesOnTheBackstop_PenetrableHitPointsThresholdLabel>Penetrable hit points threshold: {0}</EyesOnTheBackstop_PenetrableHitPointsThresholdLabel>
 	<EyesOnTheBackstop_PenetrationChanceLabel>Penetration chance: {0}%</EyesOnTheBackstop_PenetrationChanceLabel>
-	<EyesOnTheBackstop_PenetrationChanceDesc>Chance that a bullet hitting a penetrable Thing continues beyond it.</EyesOnTheBackstop_PenetrationChanceDesc>
+	<EyesOnTheBackstop_PenetrationChanceDesc>Chance that a bullet hitting a penetrable Thing continues flying beyond it.</EyesOnTheBackstop_PenetrationChanceDesc>
 	<EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierLabel>Adjacent obstacle penetration chance multiplier: {0}%</EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierLabel>
-	<EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>Multiplier applied to penetration chance when another solid obstacle is immediately behind the penetrated obstacle.</EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>
+	<EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>Multiplier applied to penetration chance when another solid obstacle is found immediately behind the penetrated obstacle. Improves double walls efficiency.</EyesOnTheBackstop_AdjacentObstaclePenetrationChanceMultiplierDesc>
 	<EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierLabel>Penetration continuation distance multiplier: {0}%</EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierLabel>
-	<EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>Multiplier applied to the configured indirect-fire range when a projectile continues after penetration.</EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>
+	<EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>Is applied to bullet trajectory length after penetration making sure it won't fly as far as it would otherwise.</EyesOnTheBackstop_PenetrationContinuationDistanceMultiplierDesc>
 	<EyesOnTheBackstop_MinRangeMultiplierLabel>Minimum indirect fire range multiplier: {0}x</EyesOnTheBackstop_MinRangeMultiplierLabel>
 	<EyesOnTheBackstop_MaxRangeMultiplierLabel>Maximum indirect fire range multiplier: {0}x</EyesOnTheBackstop_MaxRangeMultiplierLabel>
 	<EyesOnTheBackstop_EnableRicochets>Enable ricochets</EyesOnTheBackstop_EnableRicochets>
-	<EyesOnTheBackstop_EnableRicochetsDesc>Allow supported bullets to redirect when they strike an obstacle at a shallow angle.</EyesOnTheBackstop_EnableRicochetsDesc>
+	<EyesOnTheBackstop_EnableRicochetsDesc>Allow supported bullets to get deflected when they strike an obstacle at a shallow enough angles.</EyesOnTheBackstop_EnableRicochetsDesc>
 	<EyesOnTheBackstop_MaxRicochetAngleLabel>Maximum ricochet angle: {0}°</EyesOnTheBackstop_MaxRicochetAngleLabel>
 </LanguageData>

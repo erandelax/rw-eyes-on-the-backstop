@@ -15,7 +15,7 @@ namespace EyesOnTheBackstop
         private const int StagedRaidIndirectFireCheckCooldownTicks = 120;
         private static int lastIndirectFireCheckTick = -StagedRaidIndirectFireCheckCooldownTicks; // intentionally global
 
-        public static bool IsBlindFireEnabled => EyesOnTheBackstopMod.Settings?.enableBlindFire == true;
+        public static bool IsSuppressionFireEnabled => EyesOnTheBackstopMod.Settings?.enableSuppressionFire == true;
 
         public static bool IsExtendedBulletTrajectoriesEnabled => EyesOnTheBackstopMod.Settings?.enableExtendedBulletTrajectories ?? true;
 
@@ -30,26 +30,34 @@ namespace EyesOnTheBackstop
 
         public static bool IsSupportedBulletProjectile(ThingDef projectileDef)
         {
+            return IsBulletProjectileDefinition(projectileDef)
+                && !typeof(Beam).IsAssignableFrom(projectileDef.thingClass);
+        }
+
+        public static bool IsSupportedBulletProjectile(Projectile projectile)
+        {
+            return projectile is Bullet
+                && !(projectile is Beam)
+                && IsBulletProjectileDefinition(projectile.def);
+        }
+
+        private static bool IsBulletProjectileDefinition(ThingDef projectileDef)
+        {
             return projectileDef != null
                 && projectileDef.thingClass != null
                 && projectileDef.projectile != null
                 && typeof(Bullet).IsAssignableFrom(projectileDef.thingClass);
         }
 
-        public static bool IsSupportedBulletProjectile(Projectile projectile)
-        {
-            return projectile is Bullet && IsSupportedBulletProjectile(projectile.def);
-        }
-
         public static bool CanPenetrateThing(Thing target, Projectile projectile, Thing weapon = null)
         {
+            bool isPlant = target is Plant && target.def?.plant != null;
             if (!IsObstaclePenetrationEnabled
                 || target == null
                 || projectile == null
-                || !IsSupportedBulletProjectile(projectile)
                 || target.def == null
                 || !target.def.useHitPoints
-                || target.def.Fillage != FillCategory.Full)
+                || (!isPlant && target.def.Fillage != FillCategory.Full))
             {
                 return false;
             }
@@ -78,9 +86,9 @@ namespace EyesOnTheBackstop
             return target.HitPoints * (1f - armorPenetration);
         }
 
-        public static bool CanUseBlindFire(Pawn pawn)
+        public static bool CanUseSuppressionFire(Pawn pawn)
         {
-            if (!IsBlindFireEnabled)
+            if (!IsSuppressionFireEnabled)
             {
                 return false;
             }
@@ -99,10 +107,10 @@ namespace EyesOnTheBackstop
             return IsSupportedBulletProjectile(projectileVerb.Projectile);
         }
 
-        public static bool TryGetBlindFireTarget(Pawn pawn, LocalTargetInfo target, out LocalTargetInfo blindFireTarget)
+        public static bool TryGetSuppressionFireTarget(Pawn pawn, LocalTargetInfo target, out LocalTargetInfo suppressionFireTarget)
         {
-            blindFireTarget = target;
-            if (!IsBlindFireEnabled
+            suppressionFireTarget = target;
+            if (!IsSuppressionFireEnabled
                 || pawn == null
                 || (!pawn.IsColonistPlayerControlled && !pawn.IsColonyMechPlayerControlled && !pawn.IsColonySubhumanPlayerControlled)
                 || !pawn.Spawned
@@ -153,7 +161,7 @@ namespace EyesOnTheBackstop
                     candidateTarget,
                     CellRect.SingleCell(candidateCell)))
                 {
-                    blindFireTarget = candidateTarget;
+                    suppressionFireTarget = candidateTarget;
                     return true;
                 }
             }
@@ -161,7 +169,7 @@ namespace EyesOnTheBackstop
             return false;
         }
 
-        public static Job MakeBlindFireJob(Pawn pawn, LocalTargetInfo target)
+        public static Job MakeSuppressionFireJob(Pawn pawn, LocalTargetInfo target)
         {
             Job job = JobMaker.MakeJob(JobDefOf.AttackStatic, target);
             job.targetB = new LocalTargetInfo(pawn);
@@ -169,7 +177,7 @@ namespace EyesOnTheBackstop
             return job;
         }
 
-        public static bool IsBlindFireJob(Pawn pawn)
+        public static bool IsSuppressionFireJob(Pawn pawn)
         {
             Job job = pawn?.CurJob;
             return job != null
@@ -180,36 +188,51 @@ namespace EyesOnTheBackstop
 
         public static void TryWakeStagedRaidFromIndirectFire(Pawn shooter, Pawn victim, ThingDef projectileDef, ThingDef equipmentDef)
         {
-            if (!IsIndirectFireRaidReactionEnabled)
-            {
-                return;
-            }
-
-            Lord lord = victim?.GetLord();
-            if (shooter == null || lord == null || !(lord.LordJob is LordJob_StageThenAttack) || !(lord.CurLordToil is LordToil_Stage))
+            if (!IsIndirectFireRaidEnabled(shooter, victim, out Lord lord))
             {
                 return;
             }
 
             float weaponRange = FindWeaponRange(shooter, projectileDef, equipmentDef);
-            if (weaponRange <= 0f || shooter.Position.InHorDistOf(victim.Position, weaponRange))
+            if (!IsIndirectFireBeyondWeaponRange(shooter, victim, weaponRange))
             {
                 return;
             }
 
-            int currentTick = Find.TickManager.TicksGame;
-            if (currentTick - lastIndirectFireCheckTick < StagedRaidIndirectFireCheckCooldownTicks)
-            {
-                return;
-            }
-
-            lastIndirectFireCheckTick = currentTick;
-            if (!Rand.Chance(StagedRaidIndirectFireWakeChance))
+            if (!TryConsumeIndirectFireWakeCheck())
             {
                 return;
             }
 
             lord.ReceiveMemo(StagedRaidIndirectFireMemo);
+        }
+
+        private static bool IsIndirectFireRaidEnabled(Pawn shooter, Pawn victim, out Lord lord)
+        {
+            lord = victim?.GetLord();
+            return IsIndirectFireRaidReactionEnabled
+                && shooter != null
+                && lord != null
+                && lord.LordJob is LordJob_StageThenAttack
+                && lord.CurLordToil is LordToil_Stage;
+        }
+
+        private static bool IsIndirectFireBeyondWeaponRange(Pawn shooter, Pawn victim, float weaponRange)
+        {
+            return weaponRange > 0f
+                && !shooter.Position.InHorDistOf(victim.Position, weaponRange);
+        }
+
+        private static bool TryConsumeIndirectFireWakeCheck()
+        {
+            int currentTick = Find.TickManager.TicksGame;
+            if (currentTick - lastIndirectFireCheckTick < StagedRaidIndirectFireCheckCooldownTicks)
+            {
+                return false;
+            }
+
+            lastIndirectFireCheckTick = currentTick;
+            return Rand.Chance(StagedRaidIndirectFireWakeChance);
         }
 
         private static float FindWeaponRange(Pawn shooter, ThingDef projectileDef, ThingDef equipmentDef)

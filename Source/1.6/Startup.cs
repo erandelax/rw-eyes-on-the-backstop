@@ -9,6 +9,7 @@ namespace EyesOnTheBackstop
     {
         static Start()
         {
+            SuppressionCompatibility.Initialize();
             Harmony harmony = new Harmony("erandelax.eyesonthebackstop");
             harmony.PatchAll(Assembly.GetExecutingAssembly());
         }
